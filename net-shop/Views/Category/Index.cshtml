@@ -1,0 +1,66 @@
+﻿
+@model IEnumerable<net_shop.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-dark">Lista De Categorias</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-success" asp-controller="Category" asp-action="Create">
+                <i class="fa-solid fa-plus"></i> Agregar Categoria
+            </a>
+        </div>
+    </div>
+    <br/>
+    @if (Model.Count()>0)
+    {
+        <table class="table table-bordered table-striped" style="width: 100%">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Nombre Categoria
+                    </th>
+                    <th class="text-center">
+                        Orden
+                    </th>
+                    <th class="text-center">
+                        Opciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td class="text-center" width="40%">
+                            @category.Name
+                        </td>
+                        <td class="text-center" width="30%">
+                            @category.ShowOrder
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary mx-2" asp-controller="Category" asp-action="Edit" asp-route-Id="@category.Id"> 
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar 
+                                </a>
+                                <a class="btn btn-danger mx-2" asp-controller="Category" asp-action="Delete" asp-route-Id="@category.Id">
+                                    <i class="fa-solid fa-trash"></i> Eliminar
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2> No hay categorias para mostrar. </h2>    
+    }
+</div>

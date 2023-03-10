@@ -1,0 +1,136 @@
+﻿@model net_shop.Models.ViewModels.ProductVM;
+
+@{
+    var title = "Agregar Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    @if(Model.Product.Id != 0)
+    {
+        title = "Editar Producto";
+        <input asp-for="Product.Id" hidden/>
+    }
+
+    <div class="border p-3">
+        <div class="text-danger" asp-validation-summary="ModelOnly"> </div>
+
+        <div class="row">
+            <h2 class="text-dark">@title</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Product.Name">Nombre</label>
+                            <input type="text" class="form.control" asp-for="Product.Name" />
+                            <span class="text-danger" asp-validation-for="Product.Name"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Product.Description">Descripcion:</label>
+                            <input type="text" class="form.control" asp-for="Product.Description" />
+                            <span class="text-danger" asp-validation-for="Product.Description"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Product.LongDescription">Descripcion Detallada:</label>
+                            <textarea type="text" class="form.control summernote" asp-for="Product.LongDescription" ></textarea>
+                            <span class="text-danger" asp-validation-for="Product.LongDescription"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Product.Price">Precio:</label>
+                            <input type="number" class="form.control" asp-for="Product.Price" />
+                            <span class="text-danger" asp-validation-for="Product.Price"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Product.ImageUrl">Imagen:</label>
+                            <input type="file" name="file" id="imageId" class="form.control"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Product.CategoryId">Categoria:</label>
+                            <select class="form-select" asp-for="Product.CategoryId" asp-items="@Model.ListCategories">
+                                <option selected disabled> -- Seleccione una categoria</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Product.AppTypeId">App:</label>
+                            <select class="form-select" asp-for="Product.AppTypeId" asp-items="@Model.ListAppsTypes">
+                                <option selected disabled> -- Seleccione un tipo de app </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="d-grid gap-2 d-md-block">
+                        @if (Model.Product.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-success" onclick="return validateImage()">Guardar</button>
+                        }
+                        <a class="btn btn-secondary" asp-asp-controller="Category" asp-action="Index">Regresar</a>
+                    </div>
+
+                </div>
+            </div>
+            
+            @if (Model.Product.Id != 0)
+            {
+                <div class="col-4">
+                    <img src="@WC.ImagePath@Model.Product.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb;" />
+                </div>
+            }
+            
+        </div>
+    </div>
+</form>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+
+    <script>
+
+        $(document).ready(function (){
+            $('.summernote').summernote({
+                height:250
+            });
+        });
+
+        function validateImage(){
+            if (document.getElementById("imageId").value == "") {
+                swal("Error", "Seleccione una imagen!", "error");
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+}
+
+

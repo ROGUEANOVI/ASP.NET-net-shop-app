@@ -1,0 +1,105 @@
+﻿@model net_shop.Models.Product;
+
+@{
+    var title = "Agregar Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="Delete">
+    
+    <input asp-for="Id" hidden />
+
+    <div class="border p-3">
+        <div class="text-danger" asp-validation-summary="ModelOnly"> </div>
+
+        <div class="row">
+            <h2 class="text-dark">@title</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Name">Nombre</label>
+                            <input type="text" class="form.control" asp-for="Name" disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Description">Descripcion:</label>
+                            <input type="text" class="form.control" asp-for="Description" disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row" hidden>
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="LongDescription">Descripcion Detallada:</label>
+                            <textarea type="text" class="form.control summernote" asp-for="LongDescription"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="Price">Precio:</label>
+                            <input type="number" class="form.control" asp-for="Price" disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row" hidden>
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="ImageUrl">Imagen:</label>
+                            <input asp-for="ImageUrl" class="form.control" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="CategoryId">Categoria:</label>
+                            <input asp-for="CategoryId" class="form.control" hidden/>
+                            <input asp-for="Category.Name" class="form.control" disabled/>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="AppTypeId">App:</label>
+                            <input asp-for="AppTypeId" class="form.control" hidden />
+                            <input asp-for="AppType.Name" class="form.control" disabled/>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="d-grid gap-2 d-md-block">
+                       
+                       <button type="submit" class="btn btn-danger" onclick="return validateImage()">Eliminar</button>
+                        <a class="btn btn-secondary" asp-asp-controller="Category" asp-action="Index">Regresar</a>
+                    
+                    </div>
+
+                </div>
+            </div>
+
+            @if (Model.Id != 0)
+            {
+                <div class="col-4">
+                    <img src="@WC.ImagePath@Model.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb;" />
+                </div>
+            }
+
+        </div>
+    </div>
+</form>
+
+@section Scripts
+    {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}
+
+

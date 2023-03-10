@@ -1,0 +1,61 @@
+﻿
+@model IEnumerable<net_shop.Models.AppType>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-dark">Lista Tipos De App</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-success" asp-controller="AppType" asp-action="Create">
+                <i class="fa-solid fa-plus"></i> Agregar Tipo App
+            </a>
+        </div>
+    </div>
+    <br/>
+    @if (Model.Count()>0)
+    {
+        <table class="table table-bordered table-striped" style="width: 100%">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Nombre
+                    </th>
+                    
+                    <th class="text-center">
+                        Opciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appType in Model)
+                {
+                    <tr>
+                        <td class="text-center" width="40%">
+                            @appType.Name
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary mx-2" asp-controller="AppType" asp-action="Edit" asp-route-Id="@appType.Id"> 
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar 
+                                </a>
+                                <a class="btn btn-danger mx-2" asp-controller="AppType" asp-action="Delete" asp-route-Id="@appType.Id">
+                                    <i class="fa-solid fa-trash"></i> Eliminar
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2> No hay tipos de apps para mostrar. </h2>    
+    }
+</div>

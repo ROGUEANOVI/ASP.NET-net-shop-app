@@ -1,0 +1,61 @@
+﻿@model net_shop.Models.Category;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row pt-3">
+        <div class="col">
+            <form method="post" asp-action="Create">
+
+                <div class="border p-3">
+
+                    <div class="text-danger" asp-validation-summary="ModelOnly">
+
+                    </div>
+
+                    <div class="row form-group">
+
+                        <h2 class="text-success pl-3">Agregar Categoria</h2>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label" asp-for="Name"> Nombre: </label>
+                                    <input type="text" class="form-control" asp-for="Name" />
+                                    <span class="text-danger" asp-validation-for="Name"></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label" asp-for="ShowOrder"> Orden: </label>
+                                    <input type="number" class="form-control" asp-for="ShowOrder" />
+                                    <span class="text-danger" asp-validation-for="ShowOrder"> </span>
+                                </div>
+                            </div>
+                                <br />
+
+                            <div class="d-grid gap-2 d-md-block">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                                <a class="btn btn-secondary" asp-asp-controller="Category" asp-action="Index">Regresar</a>
+                            </div>
+                            
+                            
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{<partial name="_ValidationScriptsPartial"/>}
+}
